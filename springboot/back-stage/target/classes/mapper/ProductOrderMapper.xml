@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.ProductOrderMapper">
+
+
+    <select id="selectRespList" resultType="com.web.domain.Resp.ProductOrderResp">
+        SELECT
+            *
+        FROM
+            `product_order` po
+        WHERE
+            po.order_type = 0
+        <if test="req.orderStatus != null">
+            and po.order_status = #{req.orderStatus}
+        </if>
+        <if test="req.userId != null">
+            and po.user_id = #{req.userId}
+        </if>
+        <if test="req.orderNumber != null and req.orderNumber != ''">
+            and po.order_number like concat('%',#{req.orderNumber},'%')
+        </if>
+        <if test="req.title != null and req.title != ''">
+            and po.title like concat('%',#{req.title},'%')
+        </if>
+        ORDER BY
+            po.creat_time DESC
+    </select>
+</mapper>

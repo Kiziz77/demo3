@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.CommentsMapper">
+
+    <select id="getAllRootComments" resultType="com.web.domain.Resp.CommentsResp">
+        select
+            t1.id,
+            t1.user_id,
+            t1.comment_val,
+            t1.moment_id,
+            t1.comment_type,
+            t1.parent_id,
+            t1.root_comment_id,
+            t1.status,
+            t1.reply_comment,
+            t1.image_urls,
+            t1.created_by,
+            t1.create_time,
+            t1.updated_by,
+            t1.update_time,
+            t2.user_name username
+         from comments t1
+        left join users t2 on t1.user_id = t2.id
+        <where>
+            t1.deleted = 0 and t1.parent_id = 0
+            <if test="req.momentId != null">
+                and t1.moment_id = #{req.momentId}
+            </if>
+            <if test="req.commentType != null">
+                and t1.comment_type = #{req.commentType}
+            </if>
+        </where>
+    </select>
+    <select id="getChildren" resultType="com.web.domain.Resp.CommentsResp">
+        select
+            t1.id,
+            t1.user_id,
+            t1.comment_val,
+            t1.moment_id,
+            t1.comment_type,
+            t1.parent_id,
+            t1.root_comment_id,
+            t1.status,
+            t1.reply_comment,
+            t1.image_urls,
+            t1.created_by,
+            t1.create_time,
+            t1.updated_by,
+            t1.update_time,
+            t2.user_name username,
+            t4.user_name replyUsername
+        from comments t1
+        left join users t2 on t1.user_id = t2.id
+        left join comments t3 on t1.parent_id = t3.id
+        left join users t4 on t3.user_id = t4.id
+        <where>
+            t1.deleted = 0
+            <if test="parentId != null">
+                and t1.parent_id = #{parentId}
+            </if>
+            <if test="momentId != null ">
+                and t1.moment_id = #{momentId}
+            </if>
+        </where>
+    </select>
+    <select id="selectRespList" resultType="com.web.domain.Resp.CommentsResp">
+        select
+            t1.*,
+            t2.user_name username,
+            t3.title,
+            t2.avatar
+        from comments t1
+        left join users t2 on t1.user_id = t2.id
+        left join videos t3 on t1.moment_id = t3.id
+        where t1.deleted = 0
+
+
+    </select>
+</mapper>

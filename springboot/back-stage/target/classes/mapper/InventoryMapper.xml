@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.InventoryMapper">
+
+
+    <select id="selectRespList" resultType="com.web.domain.Resp.InventoryResp">
+        select
+            t1.`id`,
+            t1.`drug_id`,
+            t1.`batch_number`,
+            t1.`storage_time`,
+            t1.`expiry_date`,
+            t1.`quantity`,
+            t1.`purchase_id`
+                        ,t2.`drug_name`   t2Drugname
+                        ,t3.`purchase_id`   t3Purchaseid
+        from inventory t1
+                        left join drug_info t2 on t1.drug_id = t2.id
+
+                        left join purchase_record t3 on t1.purchase_id = t3.id
+
+        <where>
+                            <if test="req.drugId != null">
+                                and t1.drug_id = #{req.drugId}
+                            </if>
+                            <if test="req.batchNumber != null and req.batchNumber != ''">
+                                and t1.batch_number like concat('%', #{req.batchNumber}, '%')
+                            </if>
+                            <if test="req.quantity != null">
+                                and t1.quantity = #{req.quantity}
+                            </if>
+                            <if test="req.purchaseId != null">
+                                and t1.purchase_id = #{req.purchaseId}
+                            </if>
+        </where>
+    </select>
+</mapper>

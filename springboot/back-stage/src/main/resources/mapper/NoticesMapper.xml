@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.NoticesMapper">
+
+    <select id="selectRespList" resultType="com.web.domain.Resp.NoticesResp">
+        select
+            id,
+            title,
+            content,
+            pictures,
+            create_time,
+            update_time
+        from notices
+        <where>
+            <if test="req.title != null and req.title != ''">
+                and title like concat('%',#{req.title},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

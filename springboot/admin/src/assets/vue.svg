@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- 药丸形状 + 十字，突出医疗属性 -->
+  <path fill="#4CAF50" d="M32 12a20 20 0 1 0 0 40 20 20 0 0 0 0-40zm0 36a16 16 0 1 1 0-32 16 16 0 0 1 0 32z"/>
+  <path fill="#fff" d="M32 24a8 8 0 0 0-8 8h16a8 8 0 0 0-8-8zm-4 12v4h8v-4h-8z"/>
+  <!-- 十字标志 -->
+  <path fill="#FF5252" d="M36 28h-8v8h8v8h8v-8h8v-8h-8v-8h-8v8z"/>
+</svg>

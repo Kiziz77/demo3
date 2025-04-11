@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.LoginInfoMapper">
+
+    <select id="selectRespList" resultType="com.web.domain.Resp.LoginInfoResp">
+        select * from login_info order by login_time desc
+    </select>
+    <select id="getData1" resultType="java.util.Map">
+        select count(id) as `value`,DATE_FORMAT(login_time,'%Y-%m-%d') as `name` from login_info group by DATE_FORMAT(login_time,'%Y-%m-%d')
+    </select>
+</mapper>

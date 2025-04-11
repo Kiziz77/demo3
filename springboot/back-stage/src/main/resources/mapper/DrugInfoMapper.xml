@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.DrugInfoMapper">
+
+
+    <select id="selectRespList" resultType="com.web.domain.Resp.DrugInfoResp">
+        select
+            t1.`id`,
+            t1.`drug_name`,
+            t1.`specification`,
+            t1.`manufacturer`,
+            t1.`approval_number`,
+            t1.`unit_price`
+        from drug_info t1
+        <where>
+                            <if test="req.drugName != null and req.drugName != ''">
+                                and t1.drug_name like concat('%', #{req.drugName}, '%')
+                            </if>
+                            <if test="req.specification != null and req.specification != ''">
+                                and t1.specification like concat('%', #{req.specification}, '%')
+                            </if>
+                            <if test="req.manufacturer != null and req.manufacturer != ''">
+                                and t1.manufacturer like concat('%', #{req.manufacturer}, '%')
+                            </if>
+                            <if test="req.approvalNumber != null and req.approvalNumber != ''">
+                                and t1.approval_number like concat('%', #{req.approvalNumber}, '%')
+                            </if>
+                            <if test="req.unitPrice != null">
+                                and t1.unit_price = #{req.unitPrice}
+                            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.PurchaseRecordMapper">
+
+
+    <select id="selectRespList" resultType="com.web.domain.Resp.PurchaseRecordResp">
+        select
+            t1.`id`,
+            t1.`supplier_id`,
+            t1.`drug_id`,
+            t1.`purchase_quantity`,
+            t1.`purchase_time`,
+            t1.`purchase_id`,
+            t1.`purchase_unit_price`
+                        ,t2.`supplier_name`   t2Suppliername
+                        ,t3.`drug_name`   t3Drugname
+        from purchase_record t1
+                        left join supplier_info t2 on t1.supplier_id = t2.id
+
+                        left join drug_info t3 on t1.drug_id = t3.id
+
+        <where>
+                            <if test="req.supplierId != null">
+                                and t1.supplier_id = #{req.supplierId}
+                            </if>
+                            <if test="req.drugId != null">
+                                and t1.drug_id = #{req.drugId}
+                            </if>
+                            <if test="req.purchaseQuantity != null">
+                                and t1.purchase_quantity = #{req.purchaseQuantity}
+                            </if>
+                            <if test="req.purchaseId != null">
+                                and t1.purchase_id = #{req.purchaseId}
+                            </if>
+                            <if test="req.purchaseUnitPrice != null">
+                                and t1.purchase_unit_price = #{req.purchaseUnitPrice}
+                            </if>
+        </where>
+    </select>
+</mapper>

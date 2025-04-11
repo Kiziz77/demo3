@@ -1,0 +1,174 @@
+:root {
+  --publicMainColor: #3498db; /* 主色：明亮蓝色，现代且清新 */
+  --publicSubColor: #9b59b6; /* 副色：紫色，优雅且有深度 */
+
+  //头部样式变量
+  --header-height: 60px;
+  --title-font-size: 24px;
+  --btn-border-color: #2c3e50; /* 按钮边框色：深灰色 */
+  --btn-font-size: 18px;
+  --btn-color: #fff; /* 按钮字体色：白色，简洁干净 */
+
+  //导航条样式变量
+  --el-menu-height: 80px;
+  --el-menu-item-height: 60px;
+  --el-menu-item-active-color: red; /* 选中的导航项文字颜色：紫色 */
+  --el-menu-item-active-border-color: #9b59b6; /* 选中的导航项边框颜色：紫色 */
+  --el-menu-item-hover-color: #8e44ad; /* 鼠标悬停时的文字颜色：深紫色 */
+  --el-menu-item-hover-border-color: #8e44ad; /* 鼠标悬停时的边框颜色：深紫色 */
+}
+
+/** --------------------------头部样式--------------------------------------- */
+#app-container .top-header {
+  height: var(--header-height);
+  background-color: var(--publicMainColor);
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  .left {
+    font-size: var(--title-font-size);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    .user-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .username {
+      font-size: var(--btn-font-size);
+      color: #fff;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+      position: relative;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        &::after {
+          content: "个人中心";
+          position: absolute;
+          right: 0;
+          top: 100%;
+          background: var(--publicSubColor);
+          color: white;
+          padding: 0.3rem 0.8rem;
+          border-radius: 4px;
+          font-size: 12px;
+          white-space: nowrap;
+          transform: translateY(5px);
+          opacity: 0;
+          transition: all 0.3s ease;
+        }
+      }
+
+      &:hover::after {
+        opacity: 1;
+        transform: translateY(10px);
+      }
+    }
+    /* 购物车样式 */
+    .shopping-cart {
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 4px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .shopping-cart img {
+      width: 20px;
+      margin-right: 8px;
+    }
+
+    .shopping-cart p {
+      font-size: 14px;
+      color: #ffffff;
+    }
+
+    /* 悬停和点击动画 */
+    .shopping-cart:hover {
+      transform: scale(1.05);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .shopping-cart:active {
+      transform: scale(0.95);
+    }
+    .login-btn,
+    .logout-btn {
+      font-size: var(--btn-font-size);
+      font-weight: 500;
+      border: 2px solid var(--btn-border-color);
+      color: var(--btn-color);
+      padding: 0.6rem 1.5rem;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .login-btn {
+      background: linear-gradient(135deg, var(--publicMainColor), #2980b9);
+    }
+
+    .logout-btn {
+      background: linear-gradient(135deg, var(--publicSubColor), #8e44ad);
+    }
+  }
+}
+
+/** --------------------------导航条样式--------------------------------------- */
+#app-container .navs-container {
+  width: 100%;
+  height: auto;
+
+  .el-menu {
+    background-color: #ecf0f1;
+    justify-content: center;
+    margin: 0;
+    height: var(--el-menu-height);
+  }
+
+  .el-menu--horizontal > .el-menu-item {
+    height: var(--el-menu-item-height);
+    line-height: var(--el-menu-item-height);
+    margin: 10px 10px;
+    min-width: 100px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent; /* 默认边框透明 */
+    color: #333; /* 默认文字颜色 */
+  }
+
+  .el-menu--horizontal > .el-menu-item.is-active {
+    color: red !important ; /* 激活时的文字颜色 */
+    border-bottom:4px solid var(--el-menu-item-active-border-color); /* 激活时的边框颜色 */
+    transform: scale(1.05); /* 激活时稍微放大 */
+ 
+  }
+
+  .el-menu--horizontal > .el-menu-item:hover {
+    color: var(--el-menu-item-hover-color); /* 鼠标悬停时的文字颜色 */
+    border-bottom:4px solid var(--el-menu-item-active-border-color); /* 激活时的边框颜色 */
+    transform: scale(1.05); /* 鼠标悬停时稍微放大 */
+
+  }
+}

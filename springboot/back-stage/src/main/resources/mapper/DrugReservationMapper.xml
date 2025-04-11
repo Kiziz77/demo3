@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.DrugReservationMapper">
+
+
+    <select id="selectRespList" resultType="com.web.domain.Resp.DrugReservationResp">
+        select
+            t1.`id`,
+            t1.`customer_name`,
+            t1.`phone`,
+            t1.`drug_id`,
+            t1.`reserve_quantity`,
+            t1.`reserve_time`
+        from drug_reservation t1
+        <where>
+                            <if test="req.customerName != null and req.customerName != ''">
+                                and t1.customer_name like concat('%', #{req.customerName}, '%')
+                            </if>
+                            <if test="req.phone != null and req.phone != ''">
+                                and t1.phone like concat('%', #{req.phone}, '%')
+                            </if>
+                            <if test="req.drugId != null">
+                                and t1.drug_id = #{req.drugId}
+                            </if>
+                            <if test="req.reserveQuantity != null">
+                                and t1.reserve_quantity = #{req.reserveQuantity}
+                            </if>
+        </where>
+    </select>
+</mapper>

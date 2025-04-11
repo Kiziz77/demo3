@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.mapper.UsersMapper">
+
+    <select id="selectRespList" resultType="com.web.domain.Resp.UsersResp">
+        select
+            id,
+            user_name,
+            password,
+            avatar,
+            balance,
+            email,
+            phone,
+            gender,
+            create_time,
+            update_time
+        from
+            users
+        <where>
+
+            <if test="req.userName != null and req.userName != ''">
+                and user_name like concat('%',#{req.userName},'%')
+            </if>
+            <if test="req.email != null and req.email != ''">
+                and email like concat('%',#{req.email},'%')
+            </if>
+            <if test="req.phone != null and req.phone != ''">
+                and phone like concat('%',#{req.phone},'%')
+            </if>
+        </where>
+    </select>
+</mapper>
